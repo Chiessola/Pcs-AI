@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
 async function loadAllPredictions() {
     try {
         console.log("Tentative de chargement du JSON...");
-        const response = await fetch('pronos.json');
+        const response = await fetch('./pronos.json');
         
         if (!response.ok) {
             throw new Error(`Erreur HTTP : ${response.status}`);
@@ -89,3 +89,4 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     }
 });
+
