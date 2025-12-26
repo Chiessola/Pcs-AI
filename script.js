@@ -36,23 +36,24 @@ window.addEventListener('DOMContentLoaded', () => {
 async function loadAllPredictions() {
     try {
         const response = await fetch('pronos.json');
+        if (!response.ok) throw new Error("Erreur lors de la récupération du JSON");
+        
         const data = await response.json();
         const allVisuals = document.querySelectorAll('.ai-visual');
 
         data.predictions.forEach((prono, index) => {
             if (allVisuals[index]) {
                 const card = allVisuals[index];
-                // On injecte le HTML complet pour chaque carte
                 card.innerHTML = `
                     <div class="card-header">${prono.league}</div>
                     <div class="match-info">
                         <div class="team">
-                            <img src="${prono.homeLogo}" alt="${prono.homeTeam}">
+                            <img src="${prono.homeLogo}" alt="${prono.homeTeam}" style="width:30px;">
                             <span>${prono.homeTeam}</span>
                         </div>
                         <div class="date-time">${prono.date}<br>${prono.time}</div>
                         <div class="team">
-                            <img src="${prono.awayLogo}" alt="${prono.awayTeam}">
+                            <img src="${prono.awayLogo}" alt="${prono.awayTeam}" style="width:30px;">
                             <span>${prono.awayTeam}</span>
                         </div>
                     </div>
@@ -63,8 +64,22 @@ async function loadAllPredictions() {
             }
         });
     } catch (error) {
-        console.error("Erreur de chargement:", error);
+        console.error("Erreur de chargement des pronos:", error);
     }
 }
 
-window.addEventListener('DOMContentLoaded', loadAllPredictions);
+// Initialisation unique
+window.addEventListener('DOMContentLoaded', () => {
+    // Gestion du menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Lancement des pronos
+    loadAllPredictions();
+});
