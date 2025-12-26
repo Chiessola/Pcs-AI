@@ -1,43 +1,27 @@
 {
   "predictions": [
     {
-      "id": 3,
-      "league": "Premiere League",
-      "homeTeam": "Manchester United",
-      "homeLogo": "https://www.bing.com/images/search?view=detailV2&ccid=7PvuyYhv&id=5853ECC4A02AB54AAA180074ED53881EB91EA3E3&thid=OIP.7PvuyYhvfSPHVdr5Np8n4AHaHa&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.ecfbeec9886f7d23c755daf9369f27e0%3frik%3d46MeuR6IU%252b10AA%26riu%3dhttp%253a%252f%252fgetwallpapers.com%252fwallpaper%252ffull%252fa%252f6%252fe%252f847242-manchester-united-wallpaper-2018-2048x2048-pictures.jpg%26ehk%3dyXxaubqGcj0M2iWx1Uty%252f2unm264d8H8%252b7uScN6tdJg%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=2048&expw=2048&q=manchester+united&FORM=IRPRST&ck=D71AE87AFF838192CEA4594902490C73&selectedIndex=2&itb=0",
-      "awayTeam": "Newcastle United",
-      "awayLogo": "https://www.bing.com/images/search?view=detailV2&ccid=tphWOzKX&id=92EF1219BC646BA038652962AE5EB9852DC451BA&thid=OIP.tphWOzKXJbRkYaxoAXy6IgHaHa&mediaurl=https%3a%2f%2fwww.toptacular.co.uk%2fwp-content%2fuploads%2f2019%2f08%2fNewcastle-Badge-200mm-Wafer.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.b698563b329725b46461ac68017cba22%3frik%3dulHELYW5Xq5iKQ%26pid%3dImgRaw%26r%3d0&exph=2364&expw=2364&q=newcastle+united&FORM=IRPRST&ck=25FBB82ABFBF24AF7CB04C18F2B0FFC1&selectedIndex=1&itb=1",
+      "league": "Ligue 1",
+      "homeTeam": "Équipe A",
+      "homeLogo": "lien_image",
+      "awayTeam": "Équipe B",
+      "awayLogo": "lien_image",
       "date": "26/12/2025",
       "time": "21:00",
-      "prediction": "Victoire ou Newcastle United",
-      "affiliateLink": "https://reffpa.com/L?tag=d_4922326m_97c_&site=4922326&ad=97&r=registration"
-    },
-    {
-      "id": 3,
-      "league": "Belgium pro-League",
-      "homeTeam": "Anderlecht",
-      "homeLogo": "https://www.bing.com/images/search?view=detailV2&ccid=LQ68jjUz&id=58FED6BE920F4791C546EB8DD0827711E7097912&thid=OIP.LQ68jjUzeUtscDRSwLaCKQHaE8&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.2d0ebc8e3533794b6c703452c0b68229%3frik%3dEnkJ5xF3gtCN6w%26riu%3dhttp%253a%252f%252f4.bp.blogspot.com%252f-MRVvURpDcmI%252fVAIJ_2d2S5I%252fAAAAAAAAD6M%252fgXo5HMfxnVc%252fs1600%252fLogo%25252BRSC_Anderlecht.png%26ehk%3d%252fP95SxtVfxdnjJCbjCeqwcsTyhCPH2Vm%252bHLQkCsrdwA%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=1067&expw=1600&q=anderlecht+foot&FORM=IRPRST&ck=D61089FC8183765E5E6546CBD8A9C578&selectedIndex=0&itb=1",
-      "awayTeam": "R.Charleroi",
-      "awayLogo": "https://www.bing.com/images/search?view=detailV2&ccid=qONIvFfV&id=A1A872FD5781F1338B539037213B0ECFF9F1F727&thid=OIP.qONIvFfVM31UwvPF_9NxlQHaHa&mediaurl=https%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fen%2fthumb%2fe%2fe1%2fRoyal_Charleroi_Sporting_Club_logo.svg%2f1200px-Royal_Charleroi_Sporting_Club_logo.svg.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.a8e348bc57d5337d54c2f3c5ffd37195%3frik%3dJ%252ffx%252bc8OOyE3kA%26pid%3dImgRaw%26r%3d0&exph=1200&expw=1200&q=charleroi+foot&FORM=IRPRST&ck=01BCB3234A263EA04B3F924FC4833769&selectedIndex=0&itb=1",
+      "prediction": "Victoire A",
+      "affiliateLink": "https://..."
+    }
+      {
+      "league": "Ligue 1",
+      "homeTeam": "Équipe A",
+      "homeLogo": "lien_image",
+      "awayTeam": "Équipe B",
+      "awayLogo": "lien_image",
       "date": "26/12/2025",
-      "time": "20:45",
-      "prediction": "Moins de 3.5 buts",
-      "affiliateLink": "https://reffpa.com/L?tag=d_4922326m_97c_&site=4922326&ad=97&r=registration"
-    },
-    {
-      "id": 3,
-      "league": "Angletterre Championship",
-      "homeTeam": "Sheffield Wednesday",
-      "homeLogo": "https://www.bing.com/images/search?view=detailV2&ccid=JIv5wI0p&id=597DDB67E3401A2E6812721009C9E97D4BD2EDB8&thid=OIP.JIv5wI0pA2Op5grIHRr2SAEsEs&mediaurl=https%3a%2f%2fb.fssta.com%2fuploads%2fapplication%2fsoccer%2fteam-logos%2fsheffield-wednesday.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.248bf9c08d290363a9e60ac81d1af648%3frik%3duO3SS33pyQkQcg%26pid%3dImgRaw%26r%3d0&exph=800&expw=800&q=sheffield+wednesday&FORM=IRPRST&ck=4F85CB6F650AB1DB2B069435EA3A1182&selectedIndex=1&itb=1"    
-      "awayTeam": "Hull City",
-      "awayLogo": "https://www.bing.com/images/search?view=detailV2&ccid=2tmog3dG&id=8B531CA82F0848C0F7AF7AE6849AFCD82F35FD5E&thid=OIP.2tmog3dGgJyaN9xjFdvysgAAAA&mediaurl=https%3a%2f%2fb.fssta.com%2fuploads%2fapplication%2fsoccer%2fteam-logos%2fhull-city.vresize.350.350.medium.0.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.dad9a8837746809c9a37dc6315dbf2b2%3frik%3dXv01L9j8moTmeg%26pid%3dImgRaw%26r%3d0&exph=350&expw=350&q=hull+city&FORM=IRPRST&ck=D4308F56E77C1F6DFF52B728D9B32DFE&selectedIndex=8&itb=1",
-      "date": "26/12/2025",
-      "time": "16:00",
-      "prediction": "Plus de 2.5 buts",
-      "affiliateLink": "https://reffpa.com/L?tag=d_4922326m_97c_&site=4922326&ad=97&r=registration"
+      "time": "21:00",
+      "prediction": "Victoire A",
+      "affiliateLink": "https://..."
     }
   ]
-
 }
-
 
