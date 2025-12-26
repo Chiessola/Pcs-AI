@@ -35,51 +35,57 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 async function loadAllPredictions() {
     try {
+        console.log("Tentative de chargement du JSON...");
         const response = await fetch('pronos.json');
-        if (!response.ok) throw new Error("Erreur lors de la récupération du JSON");
         
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP : ${response.status}`);
+        }
+
         const data = await response.json();
         const allVisuals = document.querySelectorAll('.ai-visual');
+
+        console.log("Données reçues :", data.predictions.length, "matchs trouvés.");
 
         data.predictions.forEach((prono, index) => {
             if (allVisuals[index]) {
                 const card = allVisuals[index];
+                // On utilise || "" pour éviter d'afficher "undefined" si une donnée manque
                 card.innerHTML = `
-                    <div class="card-header">${prono.league}</div>
+                    <div class="card-header">${prono.league || "Ligue Inconnue"}</div>
                     <div class="match-info">
                         <div class="team">
-                            <img src="${prono.homeLogo}" alt="${prono.homeTeam}" style="width:30px;">
-                            <span>${prono.homeTeam}</span>
+                            <img src="${prono.homeLogo || ''}" alt="${prono.homeTeam || 'Home'}" style="width:30px;">
+                            <span>${prono.homeTeam || "Équipe 1"}</span>
                         </div>
-                        <div class="date-time">${prono.date}<br>${prono.time}</div>
+                        <div class="date-time">${prono.date || "Date"}<br>${prono.time || "Heure"}</div>
                         <div class="team">
-                            <img src="${prono.awayLogo}" alt="${prono.awayTeam}" style="width:30px;">
-                            <span>${prono.awayTeam}</span>
+                            <img src="${prono.awayLogo || ''}" alt="${prono.awayTeam || 'Away'}" style="width:30px;">
+                            <span>${prono.awayTeam || "Équipe 2"}</span>
                         </div>
                     </div>
                     <div class="prediction-label">Le pronostic :</div>
-                    <div class="result-box">${prono.prediction}</div>
-                    <a href="${prono.affiliateLink}" class="bet-button">PARIEZ MAINTENANT !</a>
+                    <div class="result-box">${prono.prediction || "En attente..."}</div>
+                    <a href="${prono.affiliateLink || '#'}" class="bet-button">PARIEZ MAINTENANT !</a>
                 `;
             }
         });
     } catch (error) {
-        console.error("Erreur de chargement des pronos:", error);
+        console.error("Erreur critique lors du chargement :", error);
     }
 }
 
-// Initialisation unique
+// Lancement au chargement de la page
 window.addEventListener('DOMContentLoaded', () => {
-    // Gestion du menu
+    loadAllPredictions();
+    
+    // Ton code pour le menu hamburger ici si besoin
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
     if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
+        hamburger.onclick = () => {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
-        });
+        };
     }
-
-    // Lancement des pronos
-    loadAllPredictions();
 });
