@@ -1,46 +1,61 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
+    /* display the color of all the site */
     body {
       background: linear-gradient(180deg, #050b1a, #0a1f44);
       color: #eaf4ff;
       overflow-x: hidden;
     }
 
-    /* NAVBAR */
+    /* navbar display*/
     nav {
       position: fixed;
-      top: 0; width: 100%; z-index: 1000;
-      display: flex; justify-content: space-between; align-items: center;
+      top: 0; 
+      width: 100%; 
+      z-index: 1000;
+      display: flex; 
+      justify-content: space-between;
+      align-items: center;
       padding: 15px 40px;
-      background: rgba(5, 15, 40, 0.85);
+      background: #001B31;
       backdrop-filter: blur(10px);
     }
-
+      /* le logo de mon site */
     nav .logo {
-      font-size: 1.4rem; font-weight: bold; color: #6ecbff;
+      font-size: 1.4rem;
+       font-weight: bold;
+        color: #6ecbff;
     }
 
-    nav ul { list-style: none; display: flex; gap: 25px; }
+    nav ul { 
+      list-style: none;
+       display: flex;
+        gap: 25px;
+     }
     nav ul li a {
       text-decoration: none; color: #eaf4ff;
       transition: color 0.3s;
     }
-    nav ul li a:hover { color: #6ecbff; }
+    nav ul li a:hover { 
+      color: #6ecbff; 
+       text-decoration-color: #6ecbff  !important;
+        text-decoration: underline !important;
+         text-underline-offset: 5px;
+    }
     .megapari:hover {
-  color: #ff0000 !important;
   text-decoration: underline !important;
-  text-decoration-color: #ff0000 !important;
+  color: #f30202  !important; 
+  text-decoration-color: #f30202  !important;
   text-underline-offset: 5px;
 }
   .melbet:hover {
-  color: #e5ff00 !important;
   text-decoration: underline !important;
-  text-decoration-color: #ff0000 !important;
+   color: #e5ff00  !important;
+  text-decoration-color: #e5ff00  !important;
   text-underline-offset: 5px;
 }
 
-    /* HERO */
+    /* my section hero where i have my cta */
     .hero {
       height: 100vh;
       display: flex; flex-direction: column;
@@ -51,55 +66,51 @@
     .hero h1 {
       font-size: clamp(2.5rem, 5vw, 4rem);
       background: linear-gradient(90deg, #6ecbff, #ffffff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: glow 3s infinite alternate;
+      -webkit-background-clip: text;
+       -webkit-text-fill-color: transparent;
+      animation: glow 3s infinite;
     }
 
     .hero p {
-      max-width: 700px; margin-top: 20px;
-      font-size: 1.1rem; opacity: 0.85;
+      max-width: 700px; 
+      margin-top: 20px;
+      font-size: 1.1rem;
+       opacity: 0.85;
     }
 
     .hero button {
       margin-top: 35px; padding: 14px 40px;
       background: linear-gradient(90deg, #1f8fff, #6ecbff);
-      border: none; border-radius: 40px;
-      font-size: 1rem; color: #fff; cursor: pointer;
+      border: none;
+       border-radius: 40px;
+      font-size: 1rem; 
+      color: #fff;
+       cursor: pointer;
       box-shadow: 0 0 25px rgba(110,203,255,0.4);
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    .button {
-      margin-top: 35px; padding: 14px 40px;
-      background: linear-gradient(90deg, #1f8fff, #6ecbff);
-      border: none; border-radius: 40px;
-      font-size: 1rem; color: #fff; cursor: pointer;
-      box-shadow: 0 0 25px rgba(110,203,255,0.4);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(110,203,255,0.7);
-    }
+    
     .hero button:hover {
       transform: scale(1.05);
       box-shadow: 0 0 40px rgba(110,203,255,0.7);
     }
     
 
-    /* SECTIONS */
-    section { padding: 100px 40px; }
+    /* section for the articles */
+    .articles { padding: 100px 40px; }
 
-    .section-title {
+    .articles-title {
       text-align: center; font-size: 2.3rem; margin-bottom: 60px;
       color: #6ecbff;
     }
 
-    /* PROBLEMS */
+    /* problems side */
     .problems {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 30px;
     }
-
+    /* les cartes ou sont les articles */
     .card {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(110,203,255,0.2);
@@ -109,38 +120,44 @@
       transition: all 0.8s ease;
     }
 
-    .card.show { transform: translateY(0); opacity: 1; }
-
-    .card h3 { margin-bottom: 15px; color: #ffffff; }
-    .card p { opacity: 0.8; }
-
-    /* AI SECTION */
-    .ai {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px; align-items: center;
+    .card.show { 
+      transform: translateY(0);
+       opacity: 1; 
     }
-    
 
-    .ai-text h2 { color: #6ecbff; font-size: 2rem; margin-bottom: 20px; }
-    .ai-text p { opacity: 0.85; line-height: 1.6; }
+    .card h3 {
+       margin-bottom: 15px;
+        color: #ffffff; 
+      }
+    .card p { 
+      opacity: 0.8;
+     }
 
+    /*  AI SECTION for my pronostics
+    .ai {
+      display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px; 
+      align-items: center;
+    }
+    .ai-text h2 {
+     color: #6ecbff;
+      font-size: 2rem; 
+      margin-bottom: 20px; 
+      }
+    .ai-text p { 
+      opacity: 0.85; 
+      line-height: 1.6; 
+      }
+     */
     .ai-visual {
-      height: 300px; border-radius: 25px;
+      height: 300px; 
+      border-radius: 25px;
+      margin-top: 40px;
       background: radial-gradient(circle at top, #6ecbff, #08152e);
       box-shadow: 0 0 60px rgba(110,203,255,0.4);
       animation: pulse 4s infinite;
-    }
-    /* Container principal (remplace ton .ai-visual existant) */
-.ai-visual.prediction-card {
-  background: radial-gradient(circle at top, #6ecbff, #08152e);/* Fond blanc comme sur ton image */
-  color: #050b1a;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: auto; /* Laisse le contenu dicter la hauteur */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
+    } 
 
 .card-header {
   font-weight: bold;
@@ -255,7 +272,7 @@
 
 /* Hamburger Icon Styles */
 .hamburger {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
