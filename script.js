@@ -30,3 +30,28 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// pop up articles
+ document.addEventListener('DOMContentLoaded', () => {
+            initPronos();
+            // Hamburger
+            const menuBtn = document.getElementById('hamburger');
+            const nav = document.getElementById('nav-links');
+            menuBtn.onclick = () => nav.classList.toggle('active');
+
+            // Popup
+            const popup = document.getElementById('article-popup');
+            const closeBtn = document.querySelector('.close-popup');
+            const cards = document.querySelectorAll('.problem-card');
+
+            cards.forEach(card => {
+                card.onclick = () => {
+                    document.getElementById('popup-title').innerText = card.querySelector('h3').innerText;
+                    document.getElementById('popup-body').innerText = card.getAttribute('data-full');
+                    popup.style.display = 'block';
+                };
+            });
+
+            closeBtn.onclick = () => popup.style.display = 'none';
+            window.onclick = (e) => { if(e.target == popup) popup.style.display = 'none'; };
+        });
