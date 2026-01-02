@@ -76,7 +76,7 @@ async function fetchDailyPredictions() {
         const data = await response.json();
         console.log("Données reçues :", data);
 
-        const matches = data.matches ? data.matches.slice(0, 5) : [];
+        const matches = data.matches ? data.matches.slice(0, 3) : [];
 
         if (matches.length === 0) {
             container.innerHTML = "<p>Aucun match disponible pour le moment.</p>";
@@ -130,5 +130,6 @@ container.innerHTML = matches.map(match => {
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
+
 
 
