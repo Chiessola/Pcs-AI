@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 async function fetchDailyPredictions() {
     const container = document.getElementById('auto-predictions');
-    const API_KEY = 'TA_CLE_API_ICI'; // Assure-toi qu'elle est correcte
+    const API_KEY = '8622fb2ecc8a472cb649cdf14f78279d'; // Assure-toi qu'elle est correcte
     
     try {
         // On appelle maintenant la route Vercel que nous venons de créer
@@ -89,3 +89,4 @@ async function fetchDailyPredictions() {
         container.innerHTML = "<p>Mise à jour des scores... Tentez votre chance sur 1xBet !</p>";
     }
 }
+
