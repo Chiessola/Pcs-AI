@@ -76,7 +76,7 @@ async function fetchDailyPredictions() {
         const data = await response.json();
         console.log("Données reçues :", data);
 
-        const matches = data.matches ? data.matches.slice(0, 5) : [];
+        const matches = data.matches ? data.matches.slice(0, 3) : [];
 
         if (matches.length === 0) {
             container.innerHTML = "<p>Aucun match disponible pour le moment.</p>";
@@ -90,7 +90,7 @@ async function fetchDailyPredictions() {
     // Si une équipe est nettement favorite (exemple basé sur le nom ou le statut)
     // Note : avec l'API gratuite, on peut aussi utiliser match.homeTeam.name
     if (match.status === 'TIMED') {
-        pronostic = `${match.homeTeam.name} ou Nul`; 
+        pronostic = `plus de 1.5 buts`; 
     }
 
     return `
@@ -110,4 +110,5 @@ async function fetchDailyPredictions() {
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
+
 
