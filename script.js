@@ -58,22 +58,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
 async function fetchDailyPredictions() {
     const container = document.getElementById('auto-predictions');
-    const API_KEY = '8622fb2ecc8a472cb649cdf14f78279d'; // Assure-toi qu'elle est correcte
+    const API_KEY = '8622fb2ecc8a472cb649cdf14f78279d'; // <-- VERIFIE BIEN CETTE CLE
     
+    if (!container) return;
+
     try {
-        // On appelle maintenant la route Vercel que nous venons de créer
+        console.log("Tentative d'appel API via Vercel...");
         const response = await fetch('/api/matches', {
+            method: 'GET',
             headers: { 'X-Auth-Token': API_KEY }
         });
 
-        if (!response.ok) throw new Error('Erreur API');
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
 
         const data = await response.json();
-        // Filtrer pour n'avoir que 5 matchs
-        const matches = data.matches.slice(0, 5);
+        console.log("Données reçues :", data);
+
+        const matches = data.matches ? data.matches.slice(0, 5) : [];
 
         if (matches.length === 0) {
-            container.innerHTML = "<p>Aucun match majeur aujourd'hui.</p>";
+            container.innerHTML = "<p>Aucun match disponible pour le moment.</p>";
             return;
         }
 
@@ -81,12 +87,15 @@ async function fetchDailyPredictions() {
             <div style="background: rgba(255,255,255,0.05); margin-bottom: 12px; padding: 15px; border-radius: 12px; border: 1px solid #6ecbff;">
                 <div style="font-size: 0.75rem; color: #6ecbff; text-transform: uppercase;">${match.competition.name}</div>
                 <div style="font-weight: bold; margin: 8px 0;">${match.homeTeam.name} vs ${match.awayTeam.name}</div>
-                <div style="color: #ff9800; font-weight: bold;">Conseil : Score +1.5 buts</div>
+                <div style="color: #ff9800; font-weight: bold;">Prono : Double Chance</div>
             </div>
         `).join('');
 
     } catch (error) {
-        container.innerHTML = "<p>Mise à jour des scores... Tentez votre chance sur 1xBet !</p>";
+        console.error("Erreur détaillée lors du fetch:", error);
+        container.innerHTML = "<p>Erreur de connexion aux données. Pariez avec le code <b>PICSOUS</b> sur 1xBet !</p>";
     }
 }
 
+// Initialisation au chargement du DOM
+document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
