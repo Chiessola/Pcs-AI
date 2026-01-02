@@ -111,7 +111,7 @@ container.innerHTML = matches.map(match => {
 
     return `
         <div class="prediction-item" style="background: rgba(110, 203, 255, 0.1); margin-bottom: 15px; padding: 20px; border-radius: 15px; border: 1px solid #6ecbff;">
-            <div style="font-size: 0.7rem; color: #6ecbff; text-transform: uppercase; letter-spacing: 1px;">${match.competition.name}</div>
+            <div style="font-size: 0.7rem; color: rgba(255,255,255,0.05); text-transform: uppercase; letter-spacing: 1px;">${match.competition.name}</div>
             <div style="font-weight: bold; font-size: 1.1rem; margin: 10px 0; color: #fff;">
                 ${match.homeTeam.name} <span style="color: #6ecbff;">vs</span> ${match.awayTeam.name}
             </div>
@@ -130,6 +130,7 @@ container.innerHTML = matches.map(match => {
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
+
 
 
 
