@@ -33,7 +33,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // pop up articles
  document.addEventListener('DOMContentLoaded', () => {
-            initPronos();
+            initScrollReveal();
+            initMobileMenu();
+            initPopups();
+            fetchDailyPredictions();
             // Hamburger
             const menuBtn = document.getElementById('hamburger');
             const nav = document.getElementById('nav-links');
@@ -244,6 +247,7 @@ async function fetchDailyPredictions() {
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
+
 
 
 
