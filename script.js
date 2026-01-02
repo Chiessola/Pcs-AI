@@ -83,13 +83,24 @@ async function fetchDailyPredictions() {
             return;
         }
 
-        container.innerHTML = matches.map(match => `
-            <div style="background: rgba(255,255,255,0.05); margin-bottom: 12px; padding: 15px; border-radius: 12px; border: 1px solid #6ecbff;">
-                <div style="font-size: 0.75rem; color: #6ecbff; text-transform: uppercase;">${match.competition.name}</div>
-                <div style="font-weight: bold; margin: 8px 0;">${match.homeTeam.name} vs ${match.awayTeam.name}</div>
-                <div style="color: #ff9800; font-weight: bold;">Prono : Double Chance</div>
-            </div>
-        `).join('');
+        container.innerHTML = matches.map(match => {
+    // Logique d'expert : on détermine un prono basé sur le statut du match
+    let pronostic = "Plus de 1.5 buts"; // Prono par défaut sécurisé
+
+    // Si une équipe est nettement favorite (exemple basé sur le nom ou le statut)
+    // Note : avec l'API gratuite, on peut aussi utiliser match.homeTeam.name
+    if (match.status === 'TIMED') {
+        pronostic = `${match.homeTeam.name} ou Nul`; 
+    }
+
+    return `
+        <div style="background: rgba(255,255,255,0.05); margin-bottom: 12px; padding: 15px; border-radius: 12px; border: 1px solid #6ecbff;">
+            <div style="font-size: 0.75rem; color: #6ecbff; text-transform: uppercase;">${match.competition.name}</div>
+            <div style="font-weight: bold; margin: 8px 0;">${match.homeTeam.name} vs ${match.awayTeam.name}</div>
+            <div style="color: #ff9800; font-weight: bold;">Prono : ${pronostic}</div>
+        </div>
+    `;
+}).join('');
 
     } catch (error) {
         console.error("Erreur détaillée lors du fetch:", error);
@@ -99,3 +110,4 @@ async function fetchDailyPredictions() {
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
+
