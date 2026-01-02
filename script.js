@@ -184,7 +184,7 @@ async function fetchDailyPredictions() {
 
         if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
 
-        const data = await response.json();
+        const data = await vercel.json();
         const matches = data.matches ? data.matches.slice(0, 3) : [];
 
         if (matches.length === 0) {
