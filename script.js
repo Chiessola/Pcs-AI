@@ -95,26 +95,22 @@ async function fetchDailyPredictions() {
 
             // LOGIQUE D'EXPERT PCS
             // 1. Favoris à domicile (Grosse probabilité de victoire)
-            if (home.includes('real madrid') || home.includes('city') || home.includes('psg') || 
-                home.includes('bayern') || home.includes('barcelona') || home.includes('liverpool') ||
-                home.includes('arsenal') || home.includes('milan')) {
-                prono = `Victoire ${match.homeTeam.name}`;
-                color = "#4caf50"; // Vert pour la victoire directe
-            }
-            // 2. Championnats offensifs (Plus de 2.5 buts)
-            else if (competition.includes('bundesliga') || competition.includes('eredivisie')) {
-                prono = "Plus de 2.5 buts";
-                color = "#2196f3"; // Bleu pour les buts
-            }
-            // 3. Matchs serrés (Double chance sécurité)
-            else if (competition.includes('serie a') || competition.includes('ligue 1')) {
-                prono = "12 (Pas de nul)";
-                color = "#ffeb3b"; // Jaune pour sécurité
-            }
-            // 4. Par défaut pour le reste
-            else {
-                prono = "plus de 1.5";
-            }
+             if (competition.includes('bundesliga') || competition.includes('eredivisie')) {
+        pronostic = "Plus de 2.5 buts"; 
+    } 
+    // 2. Détection des Favoris (Exemple: Si une grosse équipe joue à domicile)
+    else if (homeTeam.includes('real madrid') || homeTeam.includes('bayern') || homeTeam.includes('city') || homeTeam.includes('psg')) {
+        pronostic = `Victoire ${match.homeTeam.name}`;
+    }
+    // 3. Détection des matchs serrés (Championnats plus tactiques)
+    else if (competition.includes('serie a') || competition.includes('ligue 1')) {
+        pronostic = "Moins de 3.5 buts";
+    }
+    // 4. Par défaut pour les autres matchs programmés
+    else if (match.status === 'TIMED') {
+        pronostic = "Double Chance";
+    }
+
 
             return `
                 <div style="background:rgba(110,203,255,0.05); padding:18px; border-radius:12px; margin-bottom:12px; border:1px solid rgba(110,203,255,0.3); transition: 0.3s;">
@@ -134,5 +130,6 @@ async function fetchDailyPredictions() {
         container.innerHTML = "<p>Mise à jour des algorithmes... Pariez avec le code <b>PICSOUS</b> sur 1xBet.</p>";
     }
 }
+
 
 
