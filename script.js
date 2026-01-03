@@ -57,10 +57,9 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // On lance uniquement l'IA pour tester
     fetchDailyPredictions();
     
-    // Le reste est sécurisé par des "if"
+    // Gestion simplifiée du menu mobile
     const menuBtn = document.getElementById('hamburger');
     if(menuBtn) {
         menuBtn.onclick = () => document.getElementById('nav-links')?.classList.toggle('active');
@@ -78,26 +77,60 @@ async function fetchDailyPredictions() {
             headers: { 'X-Auth-Token': API_KEY }
         });
 
-        if (!response.ok) throw new Error('API_REJECTED');
+        if (!response.ok) throw new Error('API_ERROR');
 
         const data = await response.json();
         const matches = data.matches || [];
 
         if (matches.length === 0) {
-            container.innerHTML = "<p>Aucun match aujourd'hui. Tentez votre chance sur 1xBet !</p>";
+            container.innerHTML = "<p>Aucun match majeur en cours. Revenez bientôt !</p>";
             return;
         }
 
-        container.innerHTML = matches.slice(0, 5).map(match => `
-            <div style="background:rgba(110,203,255,0.1); padding:15px; border-radius:10px; margin-bottom:10px; border:1px solid #6ecbff;">
-                <p style="font-size:0.8rem; color:#6ecbff; margin:0;">${match.competition.name}</p>
-                <p style="margin:5px 0;"><b>${match.homeTeam.name} vs ${match.awayTeam.name}</b></p>
-                <p style="color:#ff9800; font-weight:bold; margin:0;">PRONO : Plus de 1.5 buts</p>
-            </div>
-        `).join('');
+        container.innerHTML = matches.slice(0, 5).map(match => {
+            const home = match.homeTeam.name.toLowerCase();
+            const competition = match.competition.name.toLowerCase();
+            let prono = "Plus de 1.5 buts"; // Base par défaut
+            let color = "#ff9800"; // Orange par défaut
+
+            // LOGIQUE D'EXPERT PCS
+            // 1. Favoris à domicile (Grosse probabilité de victoire)
+            if (home.includes('real madrid') || home.includes('city') || home.includes('psg') || 
+                home.includes('bayern') || home.includes('barcelona') || home.includes('liverpool') ||
+                home.includes('arsenal') || home.includes('milan')) {
+                prono = `Victoire ${match.homeTeam.name}`;
+                color = "#4caf50"; // Vert pour la victoire directe
+            }
+            // 2. Championnats offensifs (Plus de 2.5 buts)
+            else if (competition.includes('bundesliga') || competition.includes('eredivisie')) {
+                prono = "Plus de 2.5 buts";
+                color = "#2196f3"; // Bleu pour les buts
+            }
+            // 3. Matchs serrés (Double chance sécurité)
+            else if (competition.includes('serie a') || competition.includes('ligue 1')) {
+                prono = "12 (Pas de nul)";
+                color = "#ffeb3b"; // Jaune pour sécurité
+            }
+            // 4. Par défaut pour le reste
+            else {
+                prono = "Double Chance";
+            }
+
+            return `
+                <div style="background:rgba(110,203,255,0.05); padding:18px; border-radius:12px; margin-bottom:12px; border:1px solid rgba(110,203,255,0.3); transition: 0.3s;">
+                    <div style="font-size:0.7rem; color:#6ecbff; text-transform:uppercase; margin-bottom:5px;">${match.competition.name}</div>
+                    <div style="font-size:1.1rem; color:#fff; font-weight:bold; margin-bottom:10px;">
+                        ${match.homeTeam.name} <span style="color:#6ecbff; font-size:0.8rem;">vs</span> ${match.awayTeam.name}
+                    </div>
+                    <div style="background:${color}; color:#000; display:inline-block; padding:4px 12px; border-radius:4px; font-weight:900; font-size:0.85rem;">
+                        PRONO : ${prono}
+                    </div>
+                </div>
+            `;
+        }).join('');
 
     } catch (error) {
-        console.error("Erreur fatale:", error);
-        container.innerHTML = "<p>Connexion perdue. Utilisez le code <b>PICSOUS</b> sur 1xBet pour parier maintenant !</p>";
+        console.error("Erreur IA:", error);
+        container.innerHTML = "<p>Mise à jour des algorithmes... Pariez avec le code <b>PICSOUS</b> sur 1xBet.</p>";
     }
 }
