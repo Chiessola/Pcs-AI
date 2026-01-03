@@ -113,7 +113,7 @@ async function fetchDailyPredictions() {
             }
             // 4. Par défaut pour le reste
             else {
-                prono = "Double Chance";
+                prono = "plus de 1.5";
             }
 
             return `
@@ -134,4 +134,5 @@ async function fetchDailyPredictions() {
         container.innerHTML = "<p>Mise à jour des algorithmes... Pariez avec le code <b>PICSOUS</b> sur 1xBet.</p>";
     }
 }
+
 
