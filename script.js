@@ -137,5 +137,7 @@ async function fetchDailyPredictions() {
 }
 
 
+// Lance la récupération des pronos dès que le site est chargé
+document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
 
 
