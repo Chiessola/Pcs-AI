@@ -113,7 +113,7 @@ async function fetchDailyPredictions() {
             }
             // 4. Par défaut pour le reste
             else {
-                prono = "plus de 2.5";
+                prono = "plus de 1.5";
             }
 
 
