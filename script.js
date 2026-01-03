@@ -83,7 +83,7 @@ async function fetchDailyPredictions() {
         const matches = data.matches || [];
 
         if (matches.length === 0) {
-            container.innerHTML = "<p>Aucun match majeur en cours. Revenez bientôt !</p>";
+            container.innerHTML = "<p>Aucun match majeur en cours. Revenez demain!</p>";
             return;
         }
 
