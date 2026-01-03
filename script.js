@@ -71,17 +71,11 @@ async function fetchDailyPredictions() {
     if (!container) return;
 
     try {
-    const API_KEY = '8622fb2ecc8a472cb649cdf14f78279d';
-    // On récupère la date du jour au format YYYY-MM-DD
-    const today = new Date().toISOString().split('T')[0];
-    
-    // URL vers l'API externe (ou votre route proxy) avec filtre de date
-    const response = await fetch(`https://api.football-data.org/v4/matches?dateFrom=${today}&dateTo=${today}`, {
-        method: 'GET',
-        headers: { 'X-Auth-Token': API_KEY }
-    });
-// ... suite du code
-
+        const API_KEY = '8622fb2ecc8a472cb649cdf14f78279d';
+        const response = await fetch('/api/matches', {
+            method: 'GET',
+            headers: { 'X-Auth-Token': API_KEY }
+        });
         if (!response.ok) throw new Error('API_ERROR');
 
         const data = await response.json();
