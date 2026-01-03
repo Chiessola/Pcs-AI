@@ -56,40 +56,48 @@ window.addEventListener('DOMContentLoaded', () => {
             window.onclick = (e) => { if(e.target == popup) popup.style.display = 'none'; };
         });
 
+document.addEventListener('DOMContentLoaded', () => {
+    // On lance uniquement l'IA pour tester
+    fetchDailyPredictions();
+    
+    // Le reste est sécurisé par des "if"
+    const menuBtn = document.getElementById('hamburger');
+    if(menuBtn) {
+        menuBtn.onclick = () => document.getElementById('nav-links')?.classList.toggle('active');
+    }
+});
+
 async function fetchDailyPredictions() {
     const container = document.getElementById('auto-predictions');
-    const API_KEY = '8622fb2ecc8a472cb649cdf14f78279d'; 
-    
+    if (!container) return;
+
     try {
-        // On récupère les matchs de la journée
-        const response = await fetch('https://api.football-data.org/v4/matches', {
+        const API_KEY = '8622fb2ecc8a472cb649cdf14f78279d';
+        const response = await fetch('/api/matches', {
+            method: 'GET',
             headers: { 'X-Auth-Token': API_KEY }
         });
+
+        if (!response.ok) throw new Error('API_REJECTED');
+
         const data = await response.json();
-        const matches = data.matches.slice(0, 5); // On prend les 5 premiers
+        const matches = data.matches || [];
 
         if (matches.length === 0) {
-            container.innerHTML = "<p>Pas de grands matchs aujourd'hui. Revenez demain !</p>";
+            container.innerHTML = "<p>Aucun match aujourd'hui. Tentez votre chance sur 1xBet !</p>";
             return;
         }
 
-        container.innerHTML = matches.map(match => {
-            // Logique simple de prono : Victoire à domicile (Home) ou Extérieur (Away)
-            // Dans une version gratuite, on affiche l'affiche du match
-            return `
-                <div style="background: rgba(255,255,255,0.05); margin-bottom: 10px; padding: 15px; border-radius: 10px; border-left: 4px solid #6ecbff;">
-                    <div style="font-size: 0.9rem; color: #6ecbff;">${match.competition.name}</div>
-                    <div style="font-weight: bold; margin: 5px 0;">${match.homeTeam.name} vs ${match.awayTeam.name}</div>
-                    <div style="color: #ff9800; font-size: 0.85rem;">Pronostic recommandé : Victoire ou Nul</div>
-                </div>
-            `;
-        }).join('');
+        container.innerHTML = matches.slice(0, 5).map(match => `
+            <div style="background:rgba(110,203,255,0.1); padding:15px; border-radius:10px; margin-bottom:10px; border:1px solid #6ecbff;">
+                <p style="font-size:0.8rem; color:#6ecbff; margin:0;">${match.competition.name}</p>
+                <p style="margin:5px 0;"><b>${match.homeTeam.name} vs ${match.awayTeam.name}</b></p>
+                <p style="color:#ff9800; font-weight:bold; margin:0;">PRONO : Plus de 1.5 buts</p>
+            </div>
+        `).join('');
 
     } catch (error) {
-        console.error("Erreur API:", error);
-        container.innerHTML = "<p>Service temporairement indisponible. Tentez votre chance sur 1xBet !</p>";
+        console.error("Erreur fatale:", error);
+        container.innerHTML = "<p>Connexion perdue. Utilisez le code <b>PICSOUS</b> sur 1xBet pour parier maintenant !</p>";
     }
 }
-
-// Lancement automatique
-document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
