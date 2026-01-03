@@ -193,39 +193,24 @@ async function fetchDailyPredictions() {
         }
 
         // Génération dynamique des pronostics intelligents
-        container.innerHTML = matches.map(match => {
-            const competition = match.competition.name.toLowerCase();
-            const homeTeam = match.homeTeam.name.toLowerCase();
-            let pronostic = "Double Chance"; // Défaut sécurisé
+       container.innerHTML = matches.map(match => {
+    // Logique d'expert : on détermine un prono basé sur le statut du match
+    let pronostic = "Plus de 1.5 buts"; // Prono par défaut sécurisé
 
-            // LOGIQUE D'EXPERT PCS
-            if (competition.includes('bundesliga') || competition.includes('eredivisie')) {
-                pronostic = "Plus de 2.5 buts"; 
-            } 
-            else if (homeTeam.includes('real madrid') || homeTeam.includes('bayern') || 
-                     homeTeam.includes('city') || homeTeam.includes('psg') || 
-                     homeTeam.includes('barcelone') || homeTeam.includes('ac milan')) {
-                pronostic = `Victoire ${match.homeTeam.name}`;
-            }
-            else if (competition.includes('serie a') || competition.includes('ligue 1')) {
-                pronostic = "Moins de 4.5 buts";
-            }
-            else if (match.status === 'TIMED') {
-                pronostic = "Plus de 1.5 buts";
-            }
+    // Si une équipe est nettement favorite (exemple basé sur le nom ou le statut)
+    // Note : avec l'API gratuite, on peut aussi utiliser match.homeTeam.name
+    if (match.status === 'TIMED') {
+        pronostic = `${match.homeTeam.name} ou Nul`; 
+    }
 
-            return `
-                <div class="prediction-item" style="background: rgba(110, 203, 255, 0.1); margin-bottom: 15px; padding: 20px; border-radius: 15px; border: 1px solid #6ecbff;">
-                    <div style="font-size: 0.7rem; color: rgba(110, 203, 255, 0.1); text-transform: uppercase; letter-spacing: 1px;">${match.competition.name}</div>
-                    <div style="font-weight: bold; font-size: 1.1rem; margin: 10px 0; color: #fff;">
-                        ${match.homeTeam.name} <span style="color: #6ecbff;">vs</span> ${match.awayTeam.name}
-                    </div>
-                    <div style="background: #ff9800; color: #050b1a; display: inline-block; padding: 5px 12px; border-radius: 5px; font-weight: 800; font-size: 0.9rem;">
-                        PRONO : ${pronostic}
-                    </div>
-                </div>
-            `;
-        }).join('');
+    return `
+        <div style="background: rgba(255,255,255,0.05); margin-bottom: 12px; padding: 15px; border-radius: 12px; border: 1px solid #6ecbff;">
+            <div style="font-size: 0.75rem; color: #6ecbff; text-transform: uppercase;">${match.competition.name}</div>
+            <div style="font-weight: bold; margin: 8px 0;">${match.homeTeam.name} vs ${match.awayTeam.name}</div>
+            <div style="color: #ff9800; font-weight: bold;">Prono : ${pronostic}</div>
+        </div>
+    `;
+}).join('');
 
     } catch (error) {
         console.error("PCS-IA Error:", error);
@@ -245,6 +230,7 @@ async function fetchDailyPredictions() {
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
+
 
 
 
