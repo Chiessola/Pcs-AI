@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * Optimisé pour la performance et le SEO organique
  */
 const PCS_ENGINE = {
-    API_KEY: 'VOTRE_CLE_API_ICI',
+    API_KEY: '8622fb2ecc8a472cb649cdf14f78279d',
     // On cible les IDs des ligues majeures pour garantir des matchs "attendus"
     // 39=PL, 140=LaLiga, 61=Ligue1, 78=Bundesliga, 135=SerieA
     LEAGUES: [39, 140, 61, 78, 135], 
