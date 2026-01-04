@@ -470,7 +470,40 @@
     padding: 60px 20px;
   }
 }
+  #nav-links {
+        display: none; /* Hidden by default on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Adjust based on your header height */
+        left: 0;
+        width: 100%;
+        background-color: #050b1a; /* Match your site theme */
+        padding: 20px 0;
+        text-align: center;
+        z-index: 1000;
+    }
 
+    /* This class is added by your JavaScript when clicking the hamburger */
+    #nav-links.active {
+        display: flex;
+    }
+
+    /* Style the anchor tags to ensure they are visible */
+    #nav-links a {
+        color: #ffffff !important; /* Force white text */
+        padding: 15px;
+        text-decoration: none;
+        font-size: 1.2rem;
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid rgba(110, 203, 255, 0.1);
+    }
+
+    #nav-links a:hover {
+        background-color: rgba(110, 203, 255, 0.2);
+        color: #6ecbff; /* Your brand blue */
+    }
+}
 
 /* Small Device Optimization (Phones < 480px) */
 @media (max-width: 480px) {
