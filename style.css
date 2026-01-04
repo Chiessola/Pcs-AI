@@ -682,3 +682,39 @@
 
 /* Position relative pour le badge */
 .vs { position: relative; }
+
+/* Conteneur parent */
+.relative {
+    position: relative;
+    overflow: hidden; /* Important pour que les GIFs ne dépassent pas du site */
+}
+
+/* Style de base pour les GIFs décoratifs */
+.gif-decor {
+    position: absolute;
+    z-index: 0; /* Passe derrière le texte */
+    opacity: 0.15; /* Très léger pour ne pas distraire, juste combler le vide */
+    pointer-events: none; /* L'utilisateur peut cliquer à travers le GIF */
+    width: 150px; /* Taille ajustable */
+    filter: grayscale(100%) brightness(0.8); /* Look premium qui s'intègre au thème noir */
+    transition: opacity 0.3s ease;
+}
+
+/* Positions spécifiques */
+.top-left { top: -20px; left: -20px; transform: rotate(-15deg); }
+.bottom-right { bottom: 10px; right: -30px; transform: rotate(10deg); }
+
+/* Animation au survol : le GIF s'éclaire quand l'utilisateur passe dessus */
+.section-pcs:hover .gif-decor {
+    opacity: 0.4;
+    filter: grayscale(0%);
+}
+
+/* MOBILE : On réduit la taille ou on cache si l'écran est trop petit pour éviter le CLS */
+@media (max-width: 768px) {
+    .gif-decor {
+        width: 80px;
+        opacity: 0.1;
+    }
+}
+
