@@ -176,19 +176,15 @@ const PCS_ENGINE = {
         document.getElementById('current-date').innerText = new Date().toLocaleDateString('fr-FR', options);
     },
 
-    async getMainMatch() {
-        const today = new Date().toISOString().split('T')[0];
-        
-        try {
-            const response = await fetch(`https://v3.football.api-sports.io/fixtures?date=${today}&status=NS`, {
-                method: "GET",
-                headers: {
-                    "x-rapidapi-key": this.API_KEY,
-                    "x-rapidapi-host": "v3.football.api-sports.io"
-                }
-            });
+    // On retire status=NS pour voir tous les matchs (finis, en cours, à venir)
+const response = await fetch(`https://v3.football.api-sports.io/fixtures?date=${today}`, {
+    method: "GET",
+    headers: {
+        "x-rapidapi-key": this.API_KEY,
+        "x-rapidapi-host": "v3.football.api-sports.io"
+    }
+});
 
-            const result = await response.json();
             
             // Filtrer pour ne garder que les ligues majeures
             const topMatches = result.response.filter(m => this.LEAGUES.includes(m.league.id));
