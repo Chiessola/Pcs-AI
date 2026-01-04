@@ -139,4 +139,23 @@ async function fetchDailyPredictions() {
 // Lance la récupération des pronos dès que le site est chargé
 document.addEventListener('DOMContentLoaded', fetchDailyPredictions);
 
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Simulation de mise à jour des cotes en temps réel (pour l'effet "Live")
+    const oddValue = document.querySelector('.odds-comparison .highlight .value');
+    
+    setInterval(() => {
+        let currentOdd = parseFloat(oddValue.innerText);
+        // On fait varier légèrement la cote pour créer de l'urgence
+        let variation = (Math.random() * 0.05).toFixed(2);
+        oddValue.innerText = (2.10 + parseFloat(variation)).toFixed(2);
+    }, 5000);
+
+    // 2. Tracking des clics (Optionnel - pour vos stats)
+    const ctaBtn = document.querySelector('.btn-primary');
+    ctaBtn.addEventListener('click', () => {
+        console.log("Conversion : Utilisateur redirigé vers 1xbet avec PICSOUS");
+    });
+});
+
+
 
