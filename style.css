@@ -661,13 +661,13 @@
 }
 /* Badge Live clignotant */
 .vs::before {
-    content: "LIVE";
+    content: "SAVE";
     position: absolute;
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.6rem;
-    background: #ff4b2b;
+    background: #008000;
     color: white;
     padding: 2px 6px;
     border-radius: 4px;
