@@ -222,7 +222,7 @@ const PCS_ENGINE = {
         const ctaContainer = document.querySelector('.promo-box');
         ctaContainer.innerHTML = `
             <p>Boostez vos gains sur ce match avec le code : <strong>PICSOUS</strong></p>
-            <a href="VOTRE_LIEN_1XBET" class="btn-primary" target="_blank">Parier sur 1XBET</a>
+            <a href="https://reffpa.com/L?tag=d_2123813m_97c_&site=2123813&ad=97&r=registration/" class="btn-primary" target="_blank">Parier sur 1XBET</a>
         `;
 
         // 4. Barre de confiance (basée sur l'importance de la ligue)
