@@ -489,22 +489,7 @@
     }
 
     /* Style the anchor tags to ensure they are visible */
-    #nav-links a {
-        color: #ffffff !important; /* Force white text */
-        padding: 15px;
-        text-decoration: none;
-        font-size: 1.2rem;
-        display: block;
-        width: 100%;
-        border-bottom: 1px solid rgba(110, 203, 255, 0.1);
-    }
-
-    #nav-links a:hover {
-        background-color: rgba(110, 203, 255, 0.2);
-        color: #6ecbff; /* Your brand blue */
-    }
-}
-
+    
 /* Small Device Optimization (Phones < 480px) */
 @media (max-width: 480px) {
   .hero p {
