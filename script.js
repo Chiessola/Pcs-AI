@@ -204,6 +204,3 @@ const footballData = {
 };
 
 document.addEventListener('DOMContentLoaded', () => footballData.init());
-
-
-
