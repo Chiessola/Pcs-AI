@@ -110,19 +110,20 @@
 
     <div class="pcs-grid">
         <div class="pcs-card prediction-widget">
-            <h3><i class="icon-chart"></i> Pronostic du Jour</h3>
-            <div id="match-display" class="match-card">
-                <div class="teams">
-                    <span class="team">Real Madrid</span>
-                    <span class="vs">VS</span>
-                    <span class="team">Man. City</span>
-                </div>
-                <div class="probability-bar">
-                    <div class="bar-fill" style="width: 75%;">75% Confiance</div>
-                </div>
-                <p class="prediction-text">Conseil : Victoire à domicile ou Nul</p>
-            </div>
+    <h3><i class="icon-chart"></i> Pronostic du <span id="current-date">--/--</span></h3>
+    <div id="match-display" class="match-card">
+        <div class="teams">
+            <span id="home-team" class="team">Chargement...</span>
+            <span class="vs">VS</span>
+            <span id="away-team" class="team">...</span>
         </div>
+        <div class="probability-bar">
+            <div id="prob-fill" class="bar-fill" style="width: 0%;">0% Confiance</div>
+        </div>
+        <p id="prediction-tip" class="prediction-text">Analyse des stats en cours...</p>
+    </div>
+</div>
+
 
         <div class="pcs-card betting-cta">
             <h3><i class="icon-ticket"></i> Meilleure Cote</h3>
