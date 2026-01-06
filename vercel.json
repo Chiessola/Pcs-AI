@@ -3,6 +3,10 @@
     {
       "source": "/api/matches",
       "destination": "https://api.football-data.org/v4/matches"
+    },
+    {
+      "source": "/api/basketball",
+      "destination": "https://v1.basketball.api-sports.io/games"
     }
   ]
 }
