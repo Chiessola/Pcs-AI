@@ -1,12 +1,17 @@
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { margin: 0; 
+      padding: 0;
+       box-sizing: border-box; 
+       font-family: 'Segoe UI', sans-serif; }
     /* display the color of all the site */
     body {
       background: linear-gradient(180deg, #050b1a, #0a1f44);
       color: #eaf4ff;
       overflow-x: hidden;
     }
-
+    section {
+    padding: 50px 20px; /* Au lieu de 80px ou 100px */
+}
     /* navbar display*/
     nav {
       position: fixed;
@@ -57,7 +62,7 @@
 
     /* my section hero where i have my cta */
     .hero {
-      height: 100vh;
+      height: 80vh;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
       text-align: center; padding: 0 20px;
@@ -79,7 +84,7 @@
     }
 
     .hero button {
-      margin-top: 35px; padding: 14px 40px;
+      margin-top: 35px; padding: 4px 4px;
       background: linear-gradient(90deg, #1f8fff, #6ecbff);
       border: none;
        border-radius: 40px;
@@ -97,7 +102,7 @@
     
 
     /* section for the articles */
-    .articles { padding: 100px 40px; }
+    .articles { padding: 50px 40px; }
 
     .articles-title {
       text-align: center; font-size: 2.3rem; margin-bottom: 60px;
@@ -178,23 +183,6 @@
       opacity: 0.8;
      }
 
-    /*  AI SECTION for my pronostics
-    .ai {
-      display: grid;
-       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px; 
-      align-items: center;
-    }
-    .ai-text h2 {
-     color: #6ecbff;
-      font-size: 2rem; 
-      margin-bottom: 20px; 
-      }
-    .ai-text p { 
-      opacity: 0.85; 
-      line-height: 1.6; 
-      }
-     */
     .ai-visual {
       height: 300px; 
       border-radius: 25px;
@@ -288,7 +276,7 @@
     .cta {
       text-align: center;
       background: linear-gradient(180deg, #08152e, #050b1a);
-      border-radius: 30px;
+      
     }
 
     .cta h2 { font-size: 2.5rem; color: #ffffff; }
@@ -314,7 +302,7 @@
 
     @media(max-width: 768px) {
       nav { padding: 15px 20px; }
-      section { padding: 80px 20px; }
+      section { padding: 60px 20px; }
     }
     /* Responsive design */
     @media screen and (max-width: 368px) {
@@ -384,13 +372,11 @@
 @media (max-width: 768px) {
   /* Navigation Mobile Menu */
   .hamburger {
-    display: flex;
+    display: flex !important;
      /* ... autres styles ... */
+     
 
-  .ai-visual {
-    height: auto; /* Ajusté pour le contenu */
-    /* SUPPRIMEZ LA LIGNE "order: -1;" ICI */
-  }
+  
 
   /* Assurez-vous que le header reste en haut des cartes */
   .prediction-header {
@@ -461,27 +447,34 @@
     height: 200px; /* Reduce size on mobile */
     order: -1; /* Place visual above text on mobile */
   }
+#nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -100%; /* Cache le menu à droite */
+    width: 75%;
+    height: 100vh;
+    background: rgba(5, 27, 49, 0.98); /* Couleur sombre PCS */
+    backdrop-filter: blur(15px);
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease-in-out;
+    z-index: 999;
+  }
 
+  /* La classe qui affiche le menu quand JS l'ajoute */
+  #nav-links.active {
+    right: 0 !important;
+  }
   .cta h2 {
     font-size: 1.8rem;
   }
 
   section {
-    padding: 60px 20px;
+    padding: 40px 20px;
   }
 }
-  #nav-links {
-        display: none; /* Hidden by default on mobile */
-        flex-direction: column;
-        position: absolute;
-        top: 60px; /* Adjust based on your header height */
-        left: 0;
-        width: 100%;
-        background-color: #050b1a; /* Match your site theme */
-        padding: 20px 0;
-        text-align: center;
-        z-index: 1000;
-    }
 
     /* This class is added by your JavaScript when clicking the hamburger */
     #nav-links.active {
@@ -597,7 +590,7 @@
 /* 4. MEDIA QUERIES (Adaptation Desktop) */
 @media (min-width: 768px) {
     .pcs-container {
-        padding: 60px 40px;
+        padding: 40px 40px;
     }
 
     .pcs-title {
@@ -690,31 +683,28 @@
 }
 
 /* Style de base pour les GIFs décoratifs */
-.gif-decor {
-    position: absolute;
-    z-index: 0; /* Passe derrière le texte */
-    opacity: 0.15; /* Très léger pour ne pas distraire, juste combler le vide */
-    pointer-events: none; /* L'utilisateur peut cliquer à travers le GIF */
-    width: 150px; /* Taille ajustable */
-    filter: grayscale(100%) brightness(0.8); /* Look premium qui s'intègre au thème noir */
-    transition: opacity 0.3s ease;
+.gif-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
 }
 
-/* Positions spécifiques */
-.top-left { top: -20px; left: -20px; transform: rotate(-15deg); }
-.bottom-right { bottom: 10px; right: -30px; transform: rotate(10deg); }
-
-/* Animation au survol : le GIF s'éclaire quand l'utilisateur passe dessus */
-.section-pcs:hover .gif-decor {
-    opacity: 0.4;
-    filter: grayscale(0%);
+#myGif {
+    max-width: 100%;
+    height: 70PX;
+    border-radius: 10px; /* Optionnel : arrondit les coins */
 }
-
 /* MOBILE : On réduit la taille ou on cache si l'écran est trop petit pour éviter le CLS */
 @media (max-width: 768px) {
-    .gif-decor {
-        width: 80px;
-        opacity: 0.1;
+    .gif-container {
+        width: 100%;
+      
     }
 }
 
+img[src$=".gif"] {
+    margin: 10px auto;
+    display: block;
+    max-height: 250px; /* Évite que le GIF ne prenne tout l'écran */
+}

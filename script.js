@@ -9,63 +9,36 @@
     reveal();
     // Hamburger menu
 // Attendre que toute la page soit chargée
-window.addEventListener('DOMContentLoaded', () => {
+// GESTION UNIQUE DU MENU HAMBURGER PCS
+document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
-    const navItems = document.querySelectorAll('#nav-links a');
+    const links = document.querySelectorAll('#nav-links a');
 
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', (e) => {
-            e.preventDefault();
+            e.stopPropagation(); // Empêche les bugs de clic
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
         });
 
-        // Ferme le menu après sélection d'une option
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
+        // Fermer le menu si on clique sur un lien (pour naviguer sur la page)
+        links.forEach(link => {
+            link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
             });
         });
-    }
-});
-
-// pop up articles
- document.addEventListener('DOMContentLoaded', () => {
-            
-            // Hamburger
-            const menuBtn = document.getElementById('hamburger');
-            const nav = document.getElementById('nav-links');
-            menuBtn.onclick = () => nav.classList.toggle('active');
-
-            // Popup
-            const popup = document.getElementById('article-popup');
-            const closeBtn = document.querySelector('.close-popup');
-            const cards = document.querySelectorAll('.problem-card');
-
-            cards.forEach(card => {
-                card.onclick = () => {
-                    document.getElementById('popup-title').innerText = card.querySelector('h3').innerText;
-                    document.getElementById('popup-body').innerText = card.getAttribute('data-full');
-                    popup.style.display = 'block';
-                };
-            });
-
-            closeBtn.onclick = () => popup.style.display = 'none';
-            window.onclick = (e) => { if(e.target == popup) popup.style.display = 'none'; };
+        
+        // Fermer le menu si on clique n'importe où ailleurs sur l'écran
+        document.addEventListener('click', (event) => {
+            if (!hamburger.contains(event.target) && !navLinks.contains(event.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
         });
-
-document.addEventListener('DOMContentLoaded', () => {
-    fetchDailyPredictions();
-    
-    // Gestion simplifiée du menu mobile
-    const menuBtn = document.getElementById('hamburger');
-    if(menuBtn) {
-        menuBtn.onclick = () => document.getElementById('nav-links')?.classList.toggle('active');
     }
 });
-
 async function fetchDailyPredictions() {
     const container = document.getElementById('auto-predictions');
     if (!container) return;
@@ -155,4 +128,83 @@ document.addEventListener('DOMContentLoaded', () => {
     ctaBtn.addEventListener('click', () => {
         console.log("Conversion : Utilisateur redirigé vers 1xbet avec PICSOUS");
     });
+});
+
+//GIF ANIMATION 
+// Remplacez 3000 par la durée de votre GIF en millisecondes
+const gif = document.querySelector('#myGif');
+setInterval(() => {
+    const src = gif.src;
+    gif.src = '';
+    gif.src = src;
+}, 3000);
+
+
+
+//pronostic basket 
+document.addEventListener('DOMContentLoaded', function() {
+    const aiVisualContainer = document.querySelector('basketball');
+    const API_KEY = 'e33e4424-ec51-4984-a1fe-d612ce12dabf'; // Mettez votre ID/Clé ici
+    const BASE_URL = 'https://v1.basketball.api-sports.io/games';
+
+    async function getDailyBasketballPick() {
+        if (!aiVisualContainer) return;
+
+        // Date du jour au format YYYY-MM-DD
+        const today = new Date().toISOString().split('T')[0];
+
+        try {
+            aiVisualContainer.innerHTML = '<p>Searching for the best odds...</p>';
+
+            const response = await fetch(`${BASE_URL}?date=${today}&league=12&season=2025-2026`, {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "v1.basketball.api-sports.io",
+                    "x-rapidapi-key": API_KEY // Votre ID sert de clé ici
+                }
+            });
+
+            const result = await response.json();
+            
+            // On vérifie s'il y a des matchs aujourd'hui
+            if (result.response && result.response.length > 0) {
+                const game = result.response[0]; // On prend le premier match
+                
+                const htmlContent = `
+                    <div class="prediction-card" style="border: 2px solid #2980b9; padding: 20px; border-radius: 12px; font-family: sans-serif;">
+                        <h3 style="color: #2c3e50; text-align: center;">🏀 Today's Top Basket Pick</h3>
+                        <div style="display: flex; justify-content: space-around; align-items: center; margin: 20px 0;">
+                            <div style="text-align: center;">
+                                <img src="${game.teams.home.logo}" alt="${game.teams.home.name}" width="50"><br>
+                                <strong>${game.teams.home.name}</strong>
+                            </div>
+                            <span style="font-weight: bold; font-size: 1.2em;">VS</span>
+                            <div style="text-align: center;">
+                                <img src="${game.teams.away.logo}" alt="${game.teams.away.name}" width="50"><br>
+                                <strong>${game.teams.away.name}</strong>
+                            </div>
+                        </div>
+                        <p style="text-align: center; background: #f8f9fa; padding: 10px; border-radius: 5px;">
+                            <strong>Advice:</strong> Home Win or Over Points (Check Live Odds)
+                        </p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <p>Get the best odds on <strong>1xBet</strong>!</p>
+                            <a href="https://reffpa.com/L?tag=d_4922326m_97c_&site=4922326&ad=97&r=registration" style="background: #27ae60; color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">
+                                Bet Now - Code: PICSOUS
+                            </a>
+                        </div>
+                    </div>
+                `;
+                aiVisualContainer.innerHTML = htmlContent;
+            } else {
+                aiVisualContainer.innerHTML = "<p>No games scheduled for today. Come back tomorrow!</p>";
+            }
+
+        } catch (error) {
+            console.error('API Error:', error);
+            aiVisualContainer.innerHTML = '<p>Prediction temporary unavailable. Use code **PICSOUS** on 1xBet for your bonus!</p>';
+        }
+    }
+
+    getDailyBasketballPick();
 });
