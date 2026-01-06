@@ -71,6 +71,7 @@
     .hero h1 {
       font-size: clamp(2.5rem, 5vw, 4rem);
       background: linear-gradient(90deg, #6ecbff, #ffffff);
+      background-clip: text;
       -webkit-background-clip: text;
        -webkit-text-fill-color: transparent;
       animation: glow 3s infinite;
