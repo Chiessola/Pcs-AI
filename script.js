@@ -203,3 +203,114 @@ document.querySelectorAll("img").forEach(img => {
         link.appendChild(img);
     }
 });
+
+
+(function () {
+  // Create overlay
+  const overlay = document.createElement("div");
+  overlay.id = "promo-overlay";
+
+  // Create popup
+  const popup = document.createElement("div");
+  popup.id = "promo-popup";
+
+  popup.innerHTML = `
+    <button id="promo-close">&times;</button>
+    <h2>Create your account</h2>
+    <p>Use promo code <strong>PICSOUS</strong> and unlock exclusive benefits.</p>
+    <a href="https://reffpa.com/L?tag=d_4922335m_97c_&site=4922335&ad=97&r=registration" target="_blank" id="promo-cta">
+      Create my account
+    </a>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  // Close action
+  document.getElementById("promo-close").onclick = function () {
+    overlay.remove();
+  };
+
+  // Inject styles
+  const style = document.createElement("style");
+  style.innerHTML = `
+    #promo-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    #promo-popup {
+      background: linear-gradient(145deg, #0a1a33, #000);
+      color: #fff;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0, 120, 255, 0.4);
+      position: relative;
+      font-family: Arial, sans-serif;
+    }
+
+    #promo-popup h2 {
+      margin: 0 0 12px;
+      font-size: 1.6rem;
+      color: #4da3ff;
+    }
+
+    #promo-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    #promo-popup strong {
+      color: #4da3ff;
+    }
+
+    #promo-cta {
+      display: inline-block;
+      padding: 14px 20px;
+      background: #0066ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #promo-cta:hover {
+      background: #0050cc;
+      transform: scale(1.05);
+    }
+
+    #promo-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      #promo-popup {
+        padding: 20px;
+      }
+
+      #promo-popup h2 {
+        font-size: 1.4rem;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
