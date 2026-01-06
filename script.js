@@ -191,3 +191,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     getBasketballProno();
 });
+
+const TARGET_URL = "https://reffpa.com/L?tag=d_4922335m_97c_&site=4922335&ad=97&r=registration";
+
+document.querySelectorAll("img").forEach(img => {
+    if (img.parentElement.tagName.toLowerCase() !== "a") {
+        const link = document.createElement("a");
+        link.href = TARGET_URL;
+        link.target = "_blank";
+        img.parentNode.insertBefore(link, img);
+        link.appendChild(img);
+    }
+});
