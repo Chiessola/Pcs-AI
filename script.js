@@ -150,14 +150,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!basketContainer) return;
 
         try {
-            const today = new Date().toISOString().split('T')[0];
-            
-            // On appelle la route définie dans vercel.json
-            const response = await fetch(`/api/basketball?date=${today}&league=12&season=2025-2026`, {
-                method: 'GET',
-                headers: {
-                    'x-apisports-key': API_KEY
-                }
+    const today = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).format(new Date());
+
+    const response = await fetch(
+        `/api/basketball?date=${today}&league=12&season=2025-2026`,
+        {
+            method: 'GET',
+            headers: {
+                'x-apisports-key': API_KEY
+            }
+        
             });
 
             const data = await response.json();
