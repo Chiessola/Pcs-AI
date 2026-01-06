@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "v1.basketball.api-sports.io",
-                    "x-rapidapi-key": API_KEY // Votre ID sert de clé ici
+                    "x-apisports-key": API_KEY // Votre ID sert de clé ici
                 }
             });
 
