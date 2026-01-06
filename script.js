@@ -143,17 +143,16 @@ setInterval(() => {
 
 //pronostic basket 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. On cible la nouvelle classe demandée
     const basketContainer = document.querySelector('.basketbal-ai');
     const API_KEY = 'e33e4424-ec51-4984-a1fe-d612ce12dabf';
 
-    async function fetchBasketballProno() {
+    async function getBasketballProno() {
         if (!basketContainer) return;
 
         try {
             const today = new Date().toISOString().split('T')[0];
             
-            // 2. Appel via la nouvelle règle Vercel avec les bons en-têtes
+            // On appelle la route définie dans vercel.json
             const response = await fetch(`/api/basketball?date=${today}&league=12&season=2025-2026`, {
                 method: 'GET',
                 headers: {
@@ -166,21 +165,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.response && data.response.length > 0) {
                 const game = data.response[0];
                 basketContainer.innerHTML = `
-                    <div class="prediction-card" style="text-align:center; border:1px solid #6ecbff; padding:15px; border-radius:10px;">
-                        <h4 style="color:#6ecbff;">🏀 Pronostic NBA</h4>
-                        <p>${game.teams.home.name} vs ${game.teams.away.name}</p>
-                        <p><strong>Analyse IA : Victoire à domicile</strong></p>
-                        <p style="font-size:0.8rem;">Code Promo: <b>PICSOUS</b></p>
+                    <div style="border: 2px solid #6ecbff; padding: 15px; border-radius: 10px; background: rgba(110,203,255,0.1);">
+                        <h3 style="color:#6ecbff; text-align:center;">🏀 Prono Basket IA</h3>
+                        <p style="text-align:center; margin:10px 0;">${game.teams.home.name} vs ${game.teams.away.name}</p>
+                        <div style="background:#6ecbff; color:#000; text-align:center; padding:5px; font-weight:bold; border-radius:5px;">
+                            CONSEIL : Victoire ${game.teams.home.name}
+                        </div>
+                        <p style="font-size:0.8rem; text-align:center; margin-top:10px;">Gagnez sur 1xBet - Code: <b>PICSOUS</b></p>
                     </div>
                 `;
             } else {
-                basketContainer.innerHTML = "<p>Aucun match NBA aujourd'hui.</p>";
+                basketContainer.innerHTML = "<p>Aucun match NBA aujourd'hui. Tentez votre chance sur le foot !</p>";
             }
         } catch (error) {
-            console.error("Erreur Basket:", error);
-            basketContainer.innerHTML = "<p>Erreur de chargement des pronos.</p>";
+            console.error("Erreur:", error);
+            basketContainer.innerHTML = "<p>Données indisponibles. Utilisez le code <b>PICSOUS</b> pour votre bonus.</p>";
         }
     }
-
-    fetchBasketballProno();
+    getBasketballProno();
 });
