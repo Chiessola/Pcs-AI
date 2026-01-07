@@ -59,7 +59,7 @@ async function fetchDailyPredictions() {
             return;
         }
 
-        container.innerHTML = matches.slice(0, 23).map(match => {
+        container.innerHTML = matches.slice(0, 3).map(match => {
             const home = match.homeTeam.name.toLowerCase();
             const competition = match.competition.name.toLowerCase();
             let prono = "Plus de 1.5 buts"; // Base par défaut
