@@ -306,7 +306,7 @@ document.querySelectorAll("img").forEach(img => {
         <div id="pcs-popup-content">
             <span class="pcs-close" id="closePcs">&times;</span>
             <div class="pcs-title">🎁 BONUS EXCLUSIF 1XBET</div>
-            <p>Ne partez pas sans vos <b>200% de bonus</b> !</p>
+            <p>Ne partez pas sans recevoir votre bonus<b>200% de bonus</b> !</p>
             <div class="pcs-promo" id="pcsCode">PICSOUS</div>
             <p><small>Copiez le code et cliquez ci-dessous :</small></p>
             <a href="https://reffpa.com/L?tag=d_4922335m_97c_&site=4922335&ad=97&r=registration" class="pcs-btn" target="_blank">S'INSCRIRE & RÉCLAMER</a>
