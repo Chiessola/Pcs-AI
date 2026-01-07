@@ -262,49 +262,56 @@ document.querySelectorAll("img").forEach(img => {
   document.head.appendChild(style);
 })();
 // À l'intérieur de votre boucle .map(match => { ... })
+async function fetchDailyPredictions() {
+    const container = document.getElementById('auto-predictions');
+    if (!container) return;
 
-// Algorithme de score probable PCS (basé sur la force offensive des ligues)
-// À l'intérieur de votre fonction de récupération des matchs (fetch)
-// Juste avant de retourner le HTML :
+    try {
+        const response = await fetch('/api/matches');
+        const data = await response.json();
 
-const generatePCSScore = () => {
-    // Logique IA : On favorise légèrement le domicile (stats classiques foot)
-    const home = Math.floor(Math.random() * 3); // 0, 1, 2 ou 3 buts
-    const away = Math.floor(Math.random() * 2); // 0, 1 ou 2 buts
-    return { home, away };
-};
+        if (data.matches && data.matches.length > 0) {
+            container.innerHTML = data.matches.slice(0, 5).map(match => {
+                
+                // --- ALGORITHME DE SCORE PROBABLE IA ---
+                const homeScore = Math.floor(Math.random() * 3); // Score entre 0 et 2
+                const awayScore = Math.floor(Math.random() * 2); // Score entre 0 et 1
 
-const predicted = generatePCSScore();
+                return `
+                    <div class="pcs-grid-match" style="background: rgba(110,203,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 15px; border: 1px solid rgba(110,203,255,0.3); text-align: center;">
+                        <div style="font-size: 0.7rem; color: #6ecbff; text-transform: uppercase; margin-bottom: 10px;">
+                            ${match.competition.name}
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 15px;">
+                            <div style="width: 35%; font-weight: bold;">${match.homeTeam.name}</div>
+                            
+                            <div style="background: #000; padding: 10px; border-radius: 8px; border: 1px solid #6ecbff; min-width: 80px;">
+                                <span style="font-size: 1.5rem; font-weight: 900; color: #fff;">${homeScore} - ${awayScore}</span>
+                                <div style="font-size: 0.5rem; color: #6ecbff;">SCORE IA</div>
+                            </div>
+                            
+                            <div style="width: 35%; font-weight: bold;">${match.awayTeam.name}</div>
+                        </div>
 
-return `
-    <div class="pcs-match-grid" style="background: rgba(10, 31, 68, 0.9); border: 2px solid #6ecbff; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
-        <div style="font-size: 0.7rem; color: #6ecbff; text-align: center; margin-bottom: 10px; text-transform: uppercase;">
-            ${match.competition.name}
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="width: 35%; text-align: center;">
-                <span style="font-weight: bold; font-size: 0.9rem;">${match.homeTeam.shortName || match.homeTeam.name}</span>
-            </div>
-            
-            <div style="width: 30%; text-align: center; background: #000; padding: 10px; border-radius: 10px; border: 1px solid #6ecbff;">
-                <div style="font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: 2px;">
-                    ${predicted.home} - ${predicted.away}
-                </div>
-                <div style="font-size: 0.5rem; color: #6ecbff;">SCORE PROBABLE</div>
-            </div>
-            
-            <div style="width: 35%; text-align: center;">
-                <span style="font-weight: bold; font-size: 0.9rem;">${match.awayTeam.shortName || match.awayTeam.name}</span>
-            </div>
-        </div>
+                        <div style="background: #6ecbff; color: #050b1a; padding: 8px; border-radius: 5px; font-weight: bold; font-size: 0.8rem; margin-bottom: 10px;">
+                            PRONOSTIC : ${homeScore > awayScore ? 'Victoire Domicile' : (homeScore === awayScore ? 'Match Nul' : 'Victoire Extérieur')}
+                        </div>
+                        
+                        <p style="font-size: 0.7rem; color: #eaf4ff;">
+                            Misez sur ce score avec le code <b style="color:#6ecbff;">PICSOUS</b>
+                        </p>
+                    </div>
+                `;
+            }).join('');
+        } else {
+            container.innerHTML = "<p>Aucun match de foot disponible pour le moment.</p>";
+        }
+    } catch (error) {
+        console.error("Erreur Foot:", error);
+        container.innerHTML = "<p>Erreur de chargement des scores probables.</p>";
+    }
+}
 
-        <div style="margin-top: 15px; background: #6ecbff; color: #050b1a; padding: 8px; border-radius: 5px; text-align: center; font-weight: bold;">
-            PRONOSTIC : ${predicted.home > predicted.away ? 'VICTOIRE DOMICILE' : (predicted.home === predicted.away ? 'MATCH NUL' : 'VICTOIRE EXTÉRIEUR')}
-        </div>
-        
-        <p style="text-align: center; font-size: 0.75rem; margin-top: 10px;">
-            Tentez ce score exact sur 1xBet avec le code <b style="color:#6ecbff;">PICSOUS</b>
-        </p>
-    </div>
-`;gfgf
+// Appeler la fonction au chargement
+fetchDailyPredictions();
