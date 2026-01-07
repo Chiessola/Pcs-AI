@@ -59,7 +59,7 @@ async function fetchDailyPredictions() {
             return;
         }
 
-        container.innerHTML = matches.slice(0, 3).map(match => {
+        container.innerHTML = matches.slice(0, 33).map(match => {
             const home = match.homeTeam.name.toLowerCase();
             const competition = match.competition.name.toLowerCase();
             let prono = "Plus de 1.5 buts"; // Base par défaut
@@ -145,48 +145,53 @@ setInterval(() => {
 document.addEventListener('DOMContentLoaded', () => {
     const basketContainer = document.querySelector('.basketbal-ai');
     const API_KEY = 'e33e4424-ec51-4984-a1fe-d612ce12dabf';
-
-    async function getBasketballProno() {
+async function getBasketballProno() {
+    const basketContainer = document.querySelector('.basketbal-ai');
     if (!basketContainer) return;
 
     try {
-        // Option 1 : Utiliser la date locale pour éviter le saut vers demain trop tôt
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const today = `${year}-${month}-${day}`;
+        // --- CORRECTION DE LA DATE (FORCE USA TIME) ---
+        // On récupère la date actuelle à New York (NBA Headquarters Time)
+        const usaDate = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'America/New_York',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).format(new Date()); 
+        // Note: 'en-CA' donne directement le format YYYY-MM-DD
         
-        // On appelle la route définie dans vercel.json
-        // Note: l'ID league 12 est correct pour la NBA
-        const response = await fetch(`/api/basketball?date=${today}&league=12&season=2025-2026`, {
+        console.log("Recherche des matchs pour la date USA :", usaDate);
+
+        // Appel à votre route Vercel avec la date synchronisée USA
+        const response = await fetch(`/api/basketball?date=${usaDate}&league=12&season=2025-2026`, {
             method: 'GET',
             headers: {
-                'x-apisports-key': API_KEY
+                'x-apisports-key': 'e33e4424-ec51-4984-a1fe-d612ce12dabf'
             }
         });
-            const data = await response.json();
 
-            if (data.response && data.response.length > 0) {
-                const game = data.response[0];
-                basketContainer.innerHTML = `
-                    <div style="border: 2px solid #6ecbff; padding: 15px; border-radius: 10px; background: rgba(110,203,255,0.1);">
-                        <h3 style="color:#6ecbff; text-align:center;">🏀 Prono Basket IA</h3>
-                        <p style="text-align:center; margin:10px 0;">${game.teams.home.name} vs ${game.teams.away.name}</p>
-                        <div style="background:#6ecbff; color:#000; text-align:center; padding:5px; font-weight:bold; border-radius:5px;">
-                            CONSEIL : Victoire ${game.teams.home.name}
-                        </div>
-                        <p style="font-size:0.8rem; text-align:center; margin-top:10px;">Gagnez sur 1xBet - Code: <b>PICSOUS</b></p>
+        const data = await response.json();
+
+        if (data.response && data.response.length > 0) {
+            // Affichage des matchs (votre code actuel de rendu HTML)
+            const game = data.response[0];
+            basketContainer.innerHTML = `
+                <div style="border: 2px solid #6ecbff; padding: 15px; border-radius: 10px; background: rgba(110,203,255,0.1);">
+                    <h3 style="color:#6ecbff; text-align:center;">🏀 Prono Basket IA (USA Time)</h3>
+                    <p style="text-align:center; margin:10px 0;">${game.teams.home.name} vs ${game.teams.away.name}</p>
+                    <div style="background:#6ecbff; color:#000; text-align:center; padding:5px; font-weight:bold; border-radius:5px;">
+                        CONSEIL : Victoire ${game.teams.home.name}
                     </div>
-                `;
-            } else {
-                basketContainer.innerHTML = "<p>Aucun match NBA aujourd'hui. Tentez votre chance sur le foot !</p>";
-            }
-        } catch (error) {
-            console.error("Erreur:", error);
-            basketContainer.innerHTML = "<p>Données indisponibles. Utilisez le code <b>PICSOUS</b> pour votre bonus.</p>";
+                    <p style="font-size:0.8rem; text-align:center; margin-top:10px;">Gagnez sur 1xBet - Code: <b>PICSOUS</b></p>
+                </div>
+            `;
+        } else {
+            basketContainer.innerHTML = `<p>Aucun match trouvé pour la date du ${usaDate} (USA). Revenez plus tard !</p>`;
         }
+    } catch (error) {
+        console.error("Erreur API:", error);
     }
+}
     getBasketballProno();
 });
 
