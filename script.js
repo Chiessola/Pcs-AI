@@ -147,26 +147,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const API_KEY = 'e33e4424-ec51-4984-a1fe-d612ce12dabf';
 
     async function getBasketballProno() {
-        if (!basketContainer) return;
+    if (!basketContainer) return;
 
-        try {
-    const today = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'America/New_York',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-    }).format(new Date());
-
-    const response = await fetch(
-        `/api/basketball?date=${today}&league=12&season=2025-2026`,
-        {
+    try {
+        // Option 1 : Utiliser la date locale pour éviter le saut vers demain trop tôt
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+        
+        // On appelle la route définie dans vercel.json
+        // Note: l'ID league 12 est correct pour la NBA
+        const response = await fetch(`/api/basketball?date=${today}&league=12&season=2025-2026`, {
             method: 'GET',
             headers: {
                 'x-apisports-key': API_KEY
             }
-        
-            });
-
+        });
             const data = await response.json();
 
             if (data.response && data.response.length > 0) {
