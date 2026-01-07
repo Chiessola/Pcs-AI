@@ -261,3 +261,86 @@ document.querySelectorAll("img").forEach(img => {
   `;
   document.head.appendChild(style);
 })();
+
+
+
+(function() {
+    // 1. Création du CSS
+    const css = `
+        #pcs-popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: none; justify-content: center;
+            align-items: center; z-index: 99999; font-family: sans-serif;
+        }
+        #pcs-popup-content {
+            background: white; padding: 30px; border-radius: 20px;
+            max-width: 400px; text-align: center; position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: 20px;
+        }
+        .pcs-close {
+            position: absolute; top: 10px; right: 15px; font-size: 24px;
+            cursor: pointer; color: #999;
+        }
+        .pcs-title { color: #007bff; font-weight: bold; font-size: 22px; margin-bottom: 15px; }
+        .pcs-promo {
+            background: #f8f9fa; border: 2px dashed #007bff;
+            padding: 15px; font-size: 24px; font-weight: 900;
+            color: #333; margin: 15px 0; display: block;
+        }
+        .pcs-btn {
+            background: #28a745; color: white; padding: 15px 25px;
+            text-decoration: none; border-radius: 50px; font-weight: bold;
+            display: inline-block; transition: 0.3s;
+        }
+        .pcs-btn:hover { background: #218838; transform: scale(1.05); }
+    `;
+
+    const style = document.createElement('style');
+    style.innerHTML = css;
+    document.head.appendChild(style);
+
+    // 2. Création du HTML de la Pop-up
+    const popup = document.createElement('div');
+    popup.id = 'pcs-popup-overlay';
+    popup.innerHTML = `
+        <div id="pcs-popup-content">
+            <span class="pcs-close" id="closePcs">&times;</span>
+            <div class="pcs-title">🎁 BONUS EXCLUSIF 1XBET</div>
+            <p>Ne partez pas sans vos <b>200% de bonus</b> !</p>
+            <div class="pcs-promo" id="pcsCode">PICSOUS</div>
+            <p><small>Copiez le code et cliquez ci-dessous :</small></p>
+            <a href="https://reffpa.com/L?tag=d_4922335m_97c_&site=4922335&ad=97&r=registration" class="pcs-btn" target="_blank">S'INSCRIRE & RÉCLAMER</a>
+        </div>
+    `;
+    document.body.appendChild(popup);
+
+    // 3. Logique d'affichage
+    const overlay = document.getElementById('pcs-popup-overlay');
+    let hasShown = false;
+
+    const showPopup = () => {
+        if (!hasShown) {
+            overlay.style.display = 'flex';
+            hasShown = true;
+            localStorage.setItem('pcs_popup_shown', 'true');
+        }
+    };
+
+    // Détection de sortie (PC)
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY < 0) showPopup();
+    });
+
+    // Détection temps (Mobile/PC - après 20 secondes)
+    setTimeout(showPopup, 20000);
+
+    // Fermeture
+    document.getElementById('closePcs').onclick = () => overlay.style.display = 'none';
+    overlay.onclick = (e) => { if(e.target === overlay) overlay.style.display = 'none'; };
+    
+    // Auto-copie au clic sur le code
+    document.getElementById('pcsCode').onclick = function() {
+        navigator.clipboard.writeText("PICSOUS");
+        alert("Code PICSOUS copié !");
+    };
+})();
