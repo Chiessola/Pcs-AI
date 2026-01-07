@@ -150,9 +150,8 @@ async function getBasketballProno() {
     if (!basketContainer) return;
 
     try {
-        // --- CALCUL DE LA DATE DE DEMAIN (USA TIME) ---
+        // Calcule demain à l'heure US
         const tomorrow = new Date();
-        // On ajoute +1 jour à la date actuelle
         tomorrow.setDate(tomorrow.getDate() + 1);
 
         const usaDateTomorrow = new Intl.DateTimeFormat('en-CA', {
@@ -162,9 +161,9 @@ async function getBasketballProno() {
             day: '2-digit'
         }).format(tomorrow); 
         
-        console.log("Recherche des matchs pour demain (USA) :", usaDateTomorrow);
+        basketContainer.innerHTML = '<p>Analyse des cotes pour demain...</p>';
 
-        const response = await fetch(`/api/basketball?date=${usaDateTomorrow}&league=12&season=2025-2026`, {
+        const response = await fetch(`/api/basketball?date=${usaDateTomorrow}&league=12`, {
             method: 'GET',
             headers: {
                 'x-apisports-key': 'e33e4424-ec51-4984-a1fe-d612ce12dabf'
@@ -172,31 +171,36 @@ async function getBasketballProno() {
         });
 
         const data = await response.json();
+        console.log("Données NBA reçues :", data); // Pour vérifier dans l'inspecteur
 
         if (data.response && data.response.length > 0) {
-            // On prend le match le plus intéressant de demain
             const game = data.response[0];
             basketContainer.innerHTML = `
-                <div style="border: 2px solid #6ecbff; padding: 15px; border-radius: 10px; background: rgba(110,203,255,0.1);">
-                    <h3 style="color:#6ecbff; text-align:center;">🏀 Pronostic NBA Demain</h3>
-                    <p style="text-align:center; font-size: 0.8rem; color: #aaa;">Date USA : ${usaDateTomorrow}</p>
-                    <div style="display: flex; justify-content: space-around; align-items: center; margin: 15px 0;">
-                        <img src="${game.teams.home.logo}" width="40">
-                        <span>VS</span>
-                        <img src="${game.teams.away.logo}" width="40">
+                <div style="border: 2px solid #6ecbff; padding: 20px; border-radius: 12px; background: rgba(10,31,68,0.8); text-align:center;">
+                    <h3 style="color:#6ecbff; margin-bottom:15px;">🏀 Prono NBA Demain</h3>
+                    <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 15px;">
+                        <div>
+                            <img src="${game.teams.home.logo}" width="50"><br>
+                            <strong>${game.teams.home.name}</strong>
+                        </div>
+                        <span style="font-weight:bold; color:#6ecbff;">VS</span>
+                        <div>
+                            <img src="${game.teams.away.logo}" width="50"><br>
+                            <strong>${game.teams.away.name}</strong>
+                        </div>
                     </div>
-                    <p style="text-align:center; margin:10px 0;">${game.teams.home.name} vs ${game.teams.away.name}</p>
-                    <div style="background:#6ecbff; color:#000; text-align:center; padding:8px; font-weight:bold; border-radius:5px;">
-                        CONSEIL : Victoire ${game.teams.home.name}
+                    <div style="background:#6ecbff; color:#050b1a; padding:10px; font-weight:900; border-radius:8px; margin-bottom:15px;">
+                        CONSEIL : VICTOIRE ${game.teams.home.name.toUpperCase()}
                     </div>
-                    <p style="font-size:0.8rem; text-align:center; margin-top:10px;">Préparez vos paris sur 1xBet - Code: <b>PICSOUS</b></p>
+                    <p style="font-size:0.85rem;">Boostez vos gains sur 1xBet avec le code <b>PICSOUS</b></p>
                 </div>
             `;
         } else {
-            basketContainer.innerHTML = `<p>Aucun match programmé pour demain (${usaDateTomorrow}).</p>`;
+            basketContainer.innerHTML = `<p>Aucun match NBA trouvé pour le ${usaDateTomorrow}. Vérifiez la saison en cours.</p>`;
         }
     } catch (error) {
-        console.error("Erreur API:", error);
+        console.error("Erreur Fetch Basket:", error);
+        basketContainer.innerHTML = "<p>Erreur de connexion à l'IA. Pariez avec le code <b>PICSOUS</b>.</p>";
     }
 }
     getBasketballProno();
