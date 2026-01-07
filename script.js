@@ -163,12 +163,13 @@ async function getBasketballProno() {
         
         basketContainer.innerHTML = '<p>Analyse des cotes pour demain...</p>';
 
-        const response = await fetch(`/api/basketball?date=${usaDateTomorrow}&league=12`, {
-            method: 'GET',
-            headers: {
-                'x-apisports-key': 'e33e4424-ec51-4984-a1fe-d612ce12dabf'
-            }
-        });
+        // On enlève le paramètre season pour laisser l'API décider
+const response = await fetch(`/api/basketball?date=${usaDateTomorrow}&league=12`, { 
+    method: 'GET',
+    headers: {
+        'x-apisports-key': 'e33e4424-ec51-4984-a1fe-d612ce12dabf'
+    }
+});
 
         const data = await response.json();
         console.log("Données NBA reçues :", data); // Pour vérifier dans l'inspecteur
