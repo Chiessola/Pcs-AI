@@ -264,47 +264,47 @@ document.querySelectorAll("img").forEach(img => {
 // À l'intérieur de votre boucle .map(match => { ... })
 
 // Algorithme de score probable PCS (basé sur la force offensive des ligues)
-const generateProbableScore = (competitionName) => {
-    let home, away;
-    if (competitionName.includes('Bundesliga') || competitionName.includes('Eredivisie')) {
-        // Ligues à hauts scores
-        home = Math.floor(Math.random() * 4);
-        away = Math.floor(Math.random() * 3);
-    } else {
-        // Scores standards (Ligue 1, Serie A)
-        home = Math.floor(Math.random() * 3);
-        away = Math.floor(Math.random() * 2);
-    }
+// À l'intérieur de votre fonction de récupération des matchs (fetch)
+// Juste avant de retourner le HTML :
+
+const generatePCSScore = () => {
+    // Logique IA : On favorise légèrement le domicile (stats classiques foot)
+    const home = Math.floor(Math.random() * 3); // 0, 1, 2 ou 3 buts
+    const away = Math.floor(Math.random() * 2); // 0, 1 ou 2 buts
     return { home, away };
 };
 
-const scores = generateProbableScore(match.competition.name);
+const predicted = generatePCSScore();
 
 return `
-    <div class="pcs-match-card" style="background: rgba(10, 31, 68, 0.8); border: 1px solid #6ecbff; border-radius: 15px; padding: 20px; margin-bottom: 15px; text-align: center;">
-        <div style="font-size: 0.7rem; color: #6ecbff; text-transform: uppercase;">${match.competition.name}</div>
+    <div class="pcs-match-grid" style="background: rgba(10, 31, 68, 0.9); border: 2px solid #6ecbff; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+        <div style="font-size: 0.7rem; color: #6ecbff; text-align: center; margin-bottom: 10px; text-transform: uppercase;">
+            ${match.competition.name}
+        </div>
         
-        <div style="display: flex; justify-content: space-around; align-items: center; margin: 15px 0;">
-            <div style="width: 40%;">
-                <strong style="display: block; font-size: 0.9rem;">${match.homeTeam.shortName || match.homeTeam.name}</strong>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="width: 35%; text-align: center;">
+                <span style="font-weight: bold; font-size: 0.9rem;">${match.homeTeam.shortName || match.homeTeam.name}</span>
             </div>
             
-            <div style="background: #000; padding: 10px 15px; border-radius: 8px; border: 1px solid #6ecbff;">
-                <span style="font-size: 1.5rem; font-weight: 900; color: #fff;">${scores.home} - ${scores.away}</span>
+            <div style="width: 30%; text-align: center; background: #000; padding: 10px; border-radius: 10px; border: 1px solid #6ecbff;">
+                <div style="font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: 2px;">
+                    ${predicted.home} - ${predicted.away}
+                </div>
                 <div style="font-size: 0.5rem; color: #6ecbff;">SCORE PROBABLE</div>
             </div>
             
-            <div style="width: 40%;">
-                <strong style="display: block; font-size: 0.9rem;">${match.awayTeam.shortName || match.awayTeam.name}</strong>
+            <div style="width: 35%; text-align: center;">
+                <span style="font-weight: bold; font-size: 0.9rem;">${match.awayTeam.shortName || match.awayTeam.name}</span>
             </div>
         </div>
 
-        <div style="background: #6ecbff; color: #050b1a; padding: 8px; border-radius: 5px; font-weight: bold; font-size: 0.85rem;">
-            PRONO : ${scores.home > scores.away ? 'Victoire domicile' : (scores.home === scores.away ? 'Match Nul' : 'Victoire extérieur')}
+        <div style="margin-top: 15px; background: #6ecbff; color: #050b1a; padding: 8px; border-radius: 5px; text-align: center; font-weight: bold;">
+            PRONOSTIC : ${predicted.home > predicted.away ? 'VICTOIRE DOMICILE' : (predicted.home === predicted.away ? 'MATCH NUL' : 'VICTOIRE EXTÉRIEUR')}
         </div>
         
-        <p style="font-size: 0.75rem; margin-top: 10px; color: #eaf4ff;">
-            Misez sur ce score exact avec le code <span style="color:#6ecbff; font-weight:bold;">PICSOUS</span>
+        <p style="text-align: center; font-size: 0.75rem; margin-top: 10px;">
+            Tentez ce score exact sur 1xBet avec le code <b style="color:#6ecbff;">PICSOUS</b>
         </p>
     </div>
-`;
+`;gfgf
